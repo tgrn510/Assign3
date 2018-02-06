@@ -39,8 +39,24 @@ Please create makeupper.sh.  Modify it to return lower case results, and change 
 Referring to math.sh, create a script called add.sh that takes two inputs and adds them, ** `add.sh 5 3` ** would print 8
 *REPLACE WITH RESULTS FOR `add.sh 9 9`*
 
-### 6
-Create a program "mb_or_kb.sh", referring to bigornot.sh and useful.sh, create a script called big file that checks to see if the file exists provided as the first argument exists, and if it exists then gets the filesize, storing it as a variable. I have not provided you with a way to get filesize in exercise, and expect you to search web for a way.  The program then checks to see if the size is greater than 1,000,000.  If its less then 1,000,000, it prints the number of kilobytes (divide by 1000) followed by "kB".  If its greater than 1,000,000, then print the number of megabytes followed by "MB".
+### 6 This was poorly written. It is re-written with example solution
+Create a program `mb_or_kb.sh`, referring to `bigornot.sh` and `useful.sh` that checks to see if the file exists provided as the first argument exists, and if it exists then gets the filesize, storing it as a variable. I have not provided you with a way to get filesize in exercise, and expect you to search web for a way.  The program then checks to see if the size is greater than 1,000,000.  If its less then 1,000,000, it prints the number of kilobytes (divide by 1000) followed by "kB".  If its greater than 1,000,000, then print the number of megabytes followed by "MB".
+
+#!/bin/bash
+FILE=$1
+if [ -f $FILE ]; then
+    SIZE=$(du -b "$FILE" | cut -f 1);
+    if [ $SIZE -ge 1000000 ]; then
+        MB=$(expr 1000000 \/ 100000);
+        echo "${MB}MB";
+    else
+        KB=$(expr 1000000 \/ 1000);
+        echo "${KB}KB";
+    fi
+else
+   echo "File $FILE does not exist."
+fi
+
 
 *REPLACE WITH RESULTS for `mb_or_kb.sh ~/.bashrc` *
 
